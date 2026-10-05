@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #elefant {
+            position: absolute;
+            width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        let ele_name = "George";
+        let ele_farbe = "Violet"
+        let ele_geschlecht = "M"
+        let ele_position_x = 0;
+        let ele_position_y = 1;
+        let ele_hoehe = 280; //cm
+        let ele_gewicht = 800; //kg
+        let ele_alter = 30; //Jahre
+        let ele_fluegellaenge = 300; // cm
+        let ele_breite = 187; //cm
+        let ele_geschwindigkeit = 9; //kmh
+        let ele_istamfliegen = false;
+        let ele_istamkaken = false;
+        let ele_anzahl_fluegel = 2;
+
+
+        const true_false = [true, false];
+        const farbenliste = ["Violet", "Pink", "Blue", "Green", "Yellow", "Red", "Orange", "Purple", "Brown", "Black"];
+        const namensliste = ["George", "Gustav", "Günther", "Gisela", "Gertrud", "Gottfried", "Greta", "Günter", "Gabriele", "Güntherina"];
+        const geschlechtliste = ["M", "W"];
+        const ele_arrayname = ["name", "farbe", "geschlecht", "position_x", "position_y", "hoehe", "gewicht", "alter", "fluegellaenge", "breite", "geschwindigkeit", "istamfliegen", "istamkaken", "anzahl_fluegel"];
+        const ele_array = [ele_name, ele_farbe, ele_geschlecht, ele_position_x, ele_position_y, ele_hoehe, ele_gewicht, ele_alter, ele_fluegellaenge, ele_breite, ele_geschwindigkeit, ele_istamfliegen, ele_istamkaken, ele_anzahl_fluegel];
+        const ele_liste = [];
+        ele_liste.push(ele_array);
+
+        function createImagePega(index, left, top) {
+            const img = document.createElement("img");
+            img.id = `pegaphant-${index}`; // Eindeutige ID für jedes Bild
+            img.src = 'media/Copilot_20260921_143945.png'; // Pfad zum Bild
+            img.className = "pega";
+            img.title = `Pegaphant ${index}`;
+            img.style.left = left + "px";
+            img.style.top = top + "px";
+            console.log("top: " + top);
+            console.log("left: " + left);
+            return img;
+        }
+
+
+
+
+        function init_ele_liste(n) {
+            for (let i = 0; i < n; i++) {
+                let random_number = Math.floor(Math.random() * 100) + 1; // Zufällige Zahl zwischen 1 und 100
+                let random_name = namensliste[Math.floor(Math.random() * namensliste.length)];
+                let random_true_false = true_false[Math.floor(Math.random() * true_false.length)];
+                let random_farbe = farbenliste[Math.floor(Math.random() * farbenliste.length)];
+                let random_geschlecht = geschlechtliste[Math.floor(Math.random() * geschlechtliste.length)];
+                let new_ele_array = [random_name, random_farbe, random_geschlecht, random_number, random_number, random_number, random_number, random_number, random_number, random_number, random_number, random_true_false, random_true_false, 2];
+                ele_liste.push(new_ele_array);
+                document.body.appendChild(createImagePega(i, i * 100, i * 20));
+            }
+        }
+
+
+        function print_array(pegaphant) {
+            for (let i = 0; i < pegaphant.length; i++) {
+                console.log(ele_arrayname[i] + " : " + pegaphant[i]);
+            }
+        }
+
+        function print_arrayliste(pegaphantliste) {
+            for (let i = 0; i < pegaphantliste.length; i++) {
+                console.log("Pegaphant " + (i + 1) + ":");
+                print_array(pegaphantliste[i]);
+            }
+        }
+
+
+
+        //
+        print_info();
+        ele_fliegt();
+        console.log("+".repeat(20));
+        print_info();
+        console.log("+".repeat(20));
+        init_ele_liste(10); // Initialisiere die Liste mit 10 Pegaphanten
+        print_array(ele_array); // Ausgabe von einem pegaphant
+        print_arrayliste(ele_liste);    // ausgabe der liste von allen elementen
+
+    </script>
+
+    <img src="media/Copilot_20260921_143945.png" alt="elefant" width="30%" id="elefant" />
+    <script>
+        const elefant = document.getElementById('elefant');
+        let position = 80; // Startposition (80% von links)
+        let direction = -1; // Bewegungsrichtung (-1 = links, 1 = rechts)
+
+        function animate() {
+            for (let i = 0; i < ele_liste.length; i++) {
+                elephant = document.getElementById(ele_liste[i][0]);
+                // Aktualisiere die Position
+                position += direction * 0.5; // Bewegungsgeschwindigkeit
+                // Ändere die Richtung, wenn der Elefant den Rand erreicht
+                if (position <= 10) {
+                    direction = 1; // Bewege nach rechts
+                } else if (position >= 80) {
+                    direction = -1; // Bewege nach links
+                }
+                // S    etze die neue Position
+
+                // werte x
+                ele_liste[i][4] = position;
+                // werte y
+                ele_liste[i][5] = position;
+
+                elefant.style.left = `${position}px`;
+                elefant.style.top = `${position}px`;
+            }
+            // Führe die Animation erneut aus
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+
+</body>
+
+</html>
