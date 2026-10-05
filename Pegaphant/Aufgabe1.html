@@ -7,133 +7,94 @@
     <title>Document</title>
     <style>
         body {
-            margin: 0;
-            overflow: hidden;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            margin: 0;                    /* Entfernt den Standardabstand um die Seite. */
+            overflow: hidden;             /* Verhindert Scrollleisten am Fensterrand. */
+            height: 100vh;                /* Setzt die Seitenhöhe auf die volle Fensterhöhe. */
         }
 
-        #katze {
-            position: absolute;
-            width: 200px;
+        .katze {
+            position: absolute;           /* Ermöglicht das freie Platzieren der Bilder. */
+            width: 80px;                  /* Legt die Breite jedes Bildes fest. */
+            height: 80px;                 /* Legt die Höhe jedes Bildes fest. */
         }
     </style>
 </head>
 
 <body>
     <script>
-        let katz_name = "Fran";
-        let katz_farbe = "Schwarz";
-        let katz_geschlecht = "W";
-        let katz_position_x = 0;
-        let katz_position_y = 1;
-        let katz_hoehe = 280; //cm
-        let katz_gewicht = 800; //kg
-        let katz_alter = 30; //Jahre
-        let katz_fluegellaenge = 300; // cm
-        let katz_breite = 187; //cm
-        let katz_geschwindigkeit = 9; //kmh
-        let katz_istamfliegen = false;
-        let katz_istamkaken = false;
-        let katz_anzahl_fluegel = 2;
+        const bewegungsrichtungen = [[1, 0], [-1, 0], [0, 1], [0, -1]];                    // Bewegungen nach rechts, links, unten und oben.
 
-        const true_false = [true, false];
-        const farbenliste = ["Violet", "Pink", "Blue", "Green", "Yellow", "Red", "Orange", "Purple", "Brown", "Black"];
-        const namensliste = ["George", "Gustav", "Günther", "Gisela", "Gertrud", "Gottfried", "Greta", "Günter", "Gabriele", "Güntherina"];
-        const geschlechtliste = ["M", "W"];
-        const katz_arrayname = ["name", "farbe", "geschlecht", "position_x", "position_y", "hoehe", "gewicht", "alter", "fluegellaenge", "breite", "geschwindigkeit", "istamfliegen", "istamkaken", "anzahl_fluegel"];
-        const katz_array = [katz_name, katz_farbe, katz_geschlecht, katz_position_x, katz_position_y, katz_hoehe, katz_gewicht, katz_alter, katz_fluegellaenge, katz_breite, katz_geschwindigkeit, katz_istamfliegen, katz_istamkaken, katz_anzahl_fluegel];
-        const katz_liste = [];
-        katz_liste.push(katz_array);
+        function createImagekatze(index) {                    // Erstellt ein Katzenbild mit einer Nummer.
+            const img = document.createElement("img");                    // Erzeugt ein neues Bild-Element.
+            img.id = `katze-${index}`;                    // Gibt dem Bild eine eindeutige ID.
+            img.src = 'media/katze_cute.png';                    // Legt die Bilddatei fest.
+            img.className = "katze";                    // Weist dem Bild die CSS-Klasse zu.
+            img.title = `Katze ${index}`;                    // Setzt einen Hinweistext beim Darüberfahren.
 
-        function createImagePega(index, left, top) {
-            const img = document.createElement("img");
-            img.id = `katze-${index}`;
-            img.src = 'media/katze_cute.png';
-            img.className = "katze";
-            img.title = `Katze ${index}`;
-            img.width = 80;
-            img.style.position = "absolute";
-            img.style.left = left + "px";
-            img.style.top = top + "px";
-            return img;
+            const x = Math.random() * Math.max(0, window.innerWidth - 80);                    // Wählt eine zufällige X-Position.
+            const y = Math.random() * Math.max(0, window.innerHeight - 80);                    // Wählt eine zufällige Y-Position.
+            img.dataset.x = x;                    // Speichert die X-Position am Bild.
+            img.dataset.y = y;                    // Speichert die Y-Position am Bild.
+            const richtung = bewegungsrichtungen[Math.floor(Math.random() * bewegungsrichtungen.length)];                    // Wählt eine zufällige Startbewegung.
+            img.dataset.dx = richtung[0];                    // Speichert die horizontale Bewegungsrichtung.
+            img.dataset.dy = richtung[1];                    // Speichert die vertikale Bewegungsrichtung.
+            img.style.left = `${x}px`;                    // Setzt die horizontale Bildposition.
+            img.style.top = `${y}px`;                    // Setzt die vertikale Bildposition.
+            return img;                    // Gibt das fertige Bild zurück.
         }
 
-        function init_katz_liste(n) {
-            for (let i = 0; i < n; i++) {
-                let random_number = Math.floor(Math.random() * 100) + 1;
-                let random_name = namensliste[Math.floor(Math.random() * namensliste.length)];
-                let random_true_false = true_false[Math.floor(Math.random() * true_false.length)];
-                let random_farbe = farbenliste[Math.floor(Math.random() * farbenliste.length)];
-                let random_geschlecht = geschlechtliste[Math.floor(Math.random() * geschlechtliste.length)];
-                let new_katz_array = [random_name, random_farbe, random_geschlecht, random_number, random_number, random_number, random_number, random_number, random_number, random_number, random_number, random_true_false, random_true_false, 2];
-                katz_liste.push(new_katz_array);
-                document.body.appendChild(createImagePega(i, i * 100, i * 30));
-            }
+        for (let i = 0; i < 32; i++) {                    // Erstellt zehn Katzenbilder.
+            document.body.appendChild(createImagekatze(i));                    // Fügt jedes Bild zur Webseite hinzu.
         }
-
-        function print_array(katz) {
-            for (let i = 0; i < katz.length; i++) {
-                console.log(katz_arrayname[i] + " : " + katz[i]);
-            }
-        }
-
-        function print_arrayliste(katzliste) {
-            for (let i = 0; i < katzliste.length; i++) {
-                console.log("Katze " + (i + 1) + ":");
-                print_array(katzliste[i]);
-            }
-        }
-
-        init_katz_liste(10);
-        print_array(katz_array);
-        print_arrayliste(katz_liste);
     </script>
 
     <script>
-        const katzenBilder = [];
+        function animate() {                    // Führt einen Schritt der Katzenanimation aus.
+            const katzen = document.querySelectorAll(".katze");                    // Sucht alle Katzenbilder auf der Seite.
+            const max = { x: window.innerWidth - 80, y: window.innerHeight - 80 };                    // Berechnet die maximalen Positionen.
 
-        function animate() {
-            for (let i = 0; i < katz_liste.length; i++) {
-                const katzenbild = document.getElementById(`katze-${i}`);
-                if (!katzenbild) continue;
-
-                let position = Number(katzenbild.dataset.position || 0);
-                let direction = Number(katzenbild.dataset.direction || 1);
-
-                position += direction * 0.3;
-
-                if (position <= 10) {
-                    direction = 1;
-                } else if (position >= 80) {
-                    direction = -1;
+            for (const katze of katzen) {                    // Bewegt jedes Katzenbild.
+                for (const achse of ["x", "y"]) {                    // Berechnet die Bewegung für X und Y.
+                    let position = Number(katze.dataset[achse]) + Number(katze.dataset[`d${achse}`]) * 2;                    // Bewegt die Katze um zwei Pixel.
+                    if (position <= 0 || position >= max[achse]) {                    // Prüft, ob die Katze einen Fensterrand erreicht.
+                        katze.dataset[`d${achse}`] *= -1;                    // Dreht die Richtung am Rand um.
+                        position = Math.max(0, Math.min(position, max[achse]));                    // Hält das Bild im Fenster.
+                    }
+                    katze.dataset[achse] = position;                    // Speichert die neue Position.
                 }
-
-                position = Math.min(Math.max(position, 10), 80);
-                katzenbild.dataset.position = position;
-                katzenbild.dataset.direction = direction;
-                katzenbild.style.left = `${position}%`;
-                katzenbild.style.top = `${(i + 1) * 12}%`;
-
-                katz_liste[i][4] = position;
-                katz_liste[i][5] = (i + 1) * 12;
             }
 
-            requestAnimationFrame(animate);
-        }
+            for (let i = 0; i < katzen.length; i++) {                    // Wählt jedes Katzenbild als erstes Bild aus.
+                for (let j = i + 1; j < katzen.length; j++) {                    // Vergleicht es mit jedem folgenden Bild.
+                    const katzeA = katzen[i];                    // Speichert das erste Bild des Vergleichs.
+                    const katzeB = katzen[j];                    // Speichert das zweite Bild des Vergleichs.
+                    const abstandX = Number(katzeA.dataset.x) - Number(katzeB.dataset.x);                    // Berechnet den horizontalen Abstand.
+                    const abstandY = Number(katzeA.dataset.y) - Number(katzeB.dataset.y);                    // Berechnet den vertikalen Abstand.
+                    const beruehrtSich = Math.abs(abstandX) < 80 && Math.abs(abstandY) < 80;                    // Prüft, ob sich die Bilder überlappen.
+                    const kollisionsName = `kollision${j}`;                    // Benennt den gespeicherten Kollisionsstatus.
 
-        for (let i = 0; i < katz_liste.length; i++) {
-            const bild = document.getElementById(`katze-${i}`);
-            if (bild) {
-                bild.dataset.position = i * 8;
-                bild.dataset.direction = i % 2 === 0 ? 1 : -1;
+                    if (beruehrtSich && katzeA.dataset[kollisionsName] !== "1") {                    // Reagiert nur beim Beginn einer Berührung.
+                        if (Math.abs(abstandX) > Math.abs(abstandY)) {                    // Prüft, ob die Berührung eher seitlich ist.
+                            katzeA.dataset.dx = abstandX < 0 ? -1 : 1;                    // Bewegt das erste Bild horizontal weg.
+                            katzeB.dataset.dx = abstandX < 0 ? 1 : -1;                    // Bewegt das zweite Bild entgegengesetzt.
+                        } else {                    // Wird verwendet, wenn die Berührung eher oben oder unten ist.
+                            katzeA.dataset.dy = abstandY < 0 ? -1 : 1;                    // Bewegt das erste Bild vertikal weg.
+                            katzeB.dataset.dy = abstandY < 0 ? 1 : -1;                    // Bewegt das zweite Bild entgegengesetzt.
+                        }
+                    }
+                    katzeA.dataset[kollisionsName] = beruehrtSich ? "1" : "";                    // Merkt sich, ob die Bilder noch berührt sind.
+                }
             }
+
+            for (const katze of katzen) {                    // Aktualisiert die Darstellung aller Katzenbilder.
+                katze.style.left = `${katze.dataset.x}px`;                    // Setzt die horizontale Position.
+                katze.style.top = `${katze.dataset.y}px`;                    // Setzt die vertikale Position.
+            }
+
+            requestAnimationFrame(animate);                    // Plant den nächsten Animationsschritt ein.
         }
 
-        animate();
+        animate();                    // Startet die Animation.
     </script>
 </body>
-
 </html>
