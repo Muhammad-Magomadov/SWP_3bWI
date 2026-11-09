@@ -1,9 +1,21 @@
+import { Spieler } from "../Spieler/spieler.ts";
+
 export class Trainer {
+    private _name: string;
+    private _erfahrung: number
+    private _lizenz: string;
+
+
     constructor(
-        public _name: string,
-        public _erfahrung: number,
-        public _lizenz: string,
-    )   {}
+        name: string,
+        erfahrung: number,
+        lizenz: string
+    ){
+    this._name = name;
+    this._erfahrung = erfahrung;
+    this._lizenz = lizenz;
+    }
+
 
     get name(): string {
         return this._name;
@@ -11,7 +23,7 @@ export class Trainer {
     set name(name:string){
         this._name = name;
     }
-
+ 
     get erfahrung(): number {
         return this._erfahrung;
     }

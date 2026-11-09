@@ -1,4 +1,4 @@
-export class spieler {
+export class Spieler {
     constructor(
         public _name: string,
         public _position: string,

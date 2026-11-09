@@ -9,7 +9,7 @@ export class Parkplatz {
     private _kosten: number;
     private _dieAutos: Auto[] = [];
 
-
+ 
     constructor(aPlaetze:number, 
         name:string, 
         ort:string, 

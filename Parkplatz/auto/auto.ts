@@ -4,7 +4,7 @@ export class Auto {
         public _ps: number,
         public _farbe: string,
     ) {}
-
+ 
     get marke(): string {
         return this._marke;
     }

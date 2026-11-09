@@ -11,7 +11,7 @@ const parkplatz = new Parkplatz(
     "Hauptstraße 1",
     "6850",
     2.5,
-);
+); 
 console.log(parkplatz.grundDaten());
 let anzahlAutos = 5;
 const autos: Auto[] = [];
