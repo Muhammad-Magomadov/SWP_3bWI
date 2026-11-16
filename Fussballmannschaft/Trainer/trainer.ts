@@ -1,5 +1,3 @@
-import { Spieler } from "../Spieler/spieler.ts";
-
 export class Trainer {
     private _name: string;
     private _erfahrung: number

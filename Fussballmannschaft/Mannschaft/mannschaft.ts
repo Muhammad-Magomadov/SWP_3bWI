@@ -1,8 +1,13 @@
+import { Spieler } from "../Spieler/spieler.ts";
+import { Trainer } from "../Trainer/trainer.ts";
+
 export class Mannschaft {
     constructor(
         public _name: string,
         public _liga: string,
-        public _points: number
+        public _points: number,
+        public _spieler: Spieler[] = [],
+        public _trainer: Trainer[] = []
     ) {}
 
     get name(): string{
@@ -29,9 +34,17 @@ export class Mannschaft {
         this._points = points;
     }  
 
-    printdata(): void {
-        console.log(
-            `Mannschaft data: Name: ${this._name}   Liga: ${this._liga}   Punkte: ${this._points}`
-        );
+    grundDaten() {
+        return this._name + " " + this._liga + " " + this._points;
     }
+
+    switchPlayer(spieler: Spieler): Spieler {
+        const index = this._spieler.indexOf(spieler);
+        return this._spieler[(index + 1) % this._spieler.length];
+    }
+
+
+
+
+
 }

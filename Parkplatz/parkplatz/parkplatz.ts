@@ -71,7 +71,7 @@ export class Parkplatz {
     get kosten(): number{
         return this._kosten;
     }
-
+ 
     grundDaten() {
         return this.anzahlPlaetze + " " + this.name + " " + this.ort + " " + this.strasse + " " + this.plz + " " + this.kosten;
     }
