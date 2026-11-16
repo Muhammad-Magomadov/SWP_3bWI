@@ -1,18 +1,9 @@
 export class Trainer {
-    private _name: string;
-    private _erfahrung: number
-    private _lizenz: string;
-
-
     constructor(
-        name: string,
-        erfahrung: number,
-        lizenz: string
-    ){
-    this._name = name;
-    this._erfahrung = erfahrung;
-    this._lizenz = lizenz;
-    }
+        public _name: string,
+        public _erfahrung: number,
+        public _lizenz: string,
+    ) {}
 
 
     get name(): string {

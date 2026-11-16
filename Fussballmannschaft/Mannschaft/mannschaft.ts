@@ -6,8 +6,9 @@ export class Mannschaft {
         public _name: string,
         public _liga: string,
         public _points: number,
-        public _spieler: Spieler[] = [],
-        public _trainer: Trainer[] = []
+        public _anzahlSpieler: number,
+        private _spieler: Spieler[] = [],
+        private _trainer: Trainer[] = []
     ) {}
 
     get name(): string{
@@ -38,13 +39,26 @@ export class Mannschaft {
         return this._name + " " + this._liga + " " + this._points;
     }
 
-    switchPlayer(spieler: Spieler): Spieler {
-        const index = this._spieler.indexOf(spieler);
-        return this._spieler[(index + 1) % this._spieler.length];
+    addSpieler(spieler: Spieler) {
+        if (this._spieler.length >= this._anzahlSpieler) {
+            console.log("Mannschaft ist voll")
+        } else {
+            this._spieler.push(spieler);
+        }
+
     }
 
+    deleteSpieler(spieler: Spieler) {
+            if (this._spieler.length === 0) {
+                console.log ("Mannschaft leer, keine Spieler");
+            } else {
+                this._spieler.splice(this._spieler.indexOf(spieler), 1);
+            }
+        }
 
-
-
-
+    SpielerinMannschaft() {
+        this._spieler.forEach((spieler) => {
+            console.log(spieler.printdata());
+        });
+    }
 }
