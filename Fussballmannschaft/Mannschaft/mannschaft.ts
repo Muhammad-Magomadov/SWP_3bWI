@@ -48,13 +48,45 @@ export class Mannschaft {
 
     }
 
-    deleteSpieler(spieler: Spieler) {
-            if (this._spieler.length === 0) {
-                console.log ("Mannschaft leer, keine Spieler");
-            } else {
-                this._spieler.splice(this._spieler.indexOf(spieler), 1);
-            }
+    addTrainer(trainer: Trainer) {
+        if (this._trainer.length >= 1){
+            console.log("Mannschaft hat bereits einen Trainer");
+        } else {
+            this._trainer.push(trainer);
         }
+    }
+
+    deleteSpieler(name: string) {
+        const output = this._spieler.filter((s)=> s._name != name)
+        if (output.length < this._spieler.length) {
+            this._spieler = output
+            console.log("Spieler wurde gelöscht")
+        }
+        else {
+            console.log("niemand wurde gelöscht")
+        }
+    }
+
+
+    searchSpieler(name: string) {
+        const searchspieler = this._spieler.find((s) => s._name === name);
+        if (searchspieler) {
+            console.log("Spieler gefunden");
+            console.log(searchspieler.printdata());
+        } else {
+            console.log("Spieler nicht gefunden");
+        }
+    }
+
+    searchTrainer(name: string) {
+        const searchtrainer = this._trainer.find((t) => t._name === name);
+        if (searchtrainer) {
+            console.log("Trainer gefunden");
+            console.log(searchtrainer.printdata());
+        } else {
+            console.log("Trainer nicht gefunden");
+        }
+    }
 
     SpielerinMannschaft() {
         this._spieler.forEach((spieler) => {

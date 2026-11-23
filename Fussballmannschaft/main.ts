@@ -40,3 +40,17 @@ for (let i = 0; i < spielerNamen.length && i < spielerPositionen.length * 2; i++
     // Gibt Name, Position und Trikotnummer in der Debug Console aus.
     spieler.printdata();
 }
+
+// Alle Funktionen der Mannschaft ausführen.
+mannschaft.SpielerinMannschaft();
+
+mannschaft.searchSpieler("Max");
+mannschaft.searchSpieler("Nicht vorhanden");
+mannschaft.searchSpieler("Paul");
+mannschaft.deleteSpieler("Paul");
+
+
+mannschaft.addTrainer(new Trainer("Herr Wagner", 5, "B-Lizenz"));
+mannschaft.searchTrainer("Herr Müller");
+mannschaft.searchTrainer("Nicht vorhanden");
+
